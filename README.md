@@ -1,6 +1,6 @@
 
 
-# <div align="left"><img src="mapIRD_logo.png" height="100" /><br/>A Shiny App dashboard to track and visualize agent assignments over time.</div>
+## <div align="left"><img src="mapIRD_logo.png" height="100" /><br/>An interactive Shiny dashboard to track and visualize agent assignments over time.</div>
 
 
 author: Clément Jeanjean | last update: "February 2026"
