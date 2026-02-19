@@ -3,7 +3,7 @@
 ## <div align="left"><img src="mapIRD_logo.png" height="100" /><br/>An interactive Shiny dashboard to track and visualize agent assignments over time.</div>
 
 
-by Clément Jeanjean | last update: "February 2026"
+by Clément Jeanjean | last update: February 2026
 
  
   - [Description](#description)
