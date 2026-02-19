@@ -1,4 +1,5 @@
 
+
 ui <- page_navbar(
 
   
@@ -20,12 +21,8 @@ nav_spacer(),
 sidebar = sidebar(
   "FILTRES :",
     selectInput("select_projection", "Outil de projection", choices = unique(split_vec_string(df_data$proj_sud[!is.na(df_data$proj_sud)], sep=";")), multiple = TRUE),
-    selectInput("select_dispositif_structurant", "Dispositif structurant", choices = unique(split_vec_string(df_data$dispositif[!is.na(df_data$dispositif)], sep=";")), multiple = TRUE),
-    selectInput("select_umr", "Unités", choices = unique(split_vec_string(df_data$unite[!is.na(df_data$unite)], sep=";")), multiple = TRUE),
-    selectInput("select_zone", "Zones", choices = unique(df_data$zone_geographique), multiple = TRUE),
+    selectInput("select_zone", "Zones", choices = unique(df_data$Zone.géographique_fr), multiple = TRUE),
     selectInput("select_thematique", "Thématiques", choices = unique(split_vec_string(df_data$thematique[!is.na(df_data$thematique)], sep=";")), multiple = TRUE),
-    selectInput("select_mots_cles", "Mots-clés", choices = unique(split_vec_string(df_data$mot_clef[!is.na(df_data$mot_clef)], sep=";")), multiple = TRUE),
-    selectInput("select_genre", "Genre", choices = unique(df_data$genre[!is.na(df_data$genre)]), multiple = TRUE),
     checkboxInput("checkbox_masquer_france", "Masquer France Métropolitaine?")
   ), # end of sidebar
 
@@ -51,16 +48,6 @@ navset_card_tab(full_screen = TRUE,
           "*Cliquez sur un pays pour afficher les informations associées",
         )
       ), # end of card
-      
-      card(
-        card_header(
-          class = "bg-blue",
-          "Infos dispositifs du pays sélectionné" 
-        ),
-        card_body(
-          dataTableOutput("dico_dispositifs_filtre") 
-        ) 
-      ) # end of card
       ), # end of column
     
   ###### INFOS PAYS ######
