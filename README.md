@@ -1,4 +1,4 @@
-# Snakemake workflow: <img src="mapIRD_logo.png" align="middle" height="200" /></a>
+# Shiny app: </a><img src="mapIRD_logo.png" align="middle" height="100" /></a>
 
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl.html)       
