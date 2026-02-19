@@ -23,7 +23,7 @@ server = function(input, output) {
     
     # CONDITION FILTRE "UMR"
     if(is.null(input$select_umr)){
-      selected_umr=unique(split_vec_string(df_all$unite, sep=";"))
+      selected_umr=unique(split_vec_string(df_all$unite, sep="\t"))
     } else{
       selected_umr=input$select_umr
     }
@@ -35,7 +35,7 @@ server = function(input, output) {
     
     # CONDITION FILTRE "PROJECTION"
     if(is.null(input$select_projection)){
-      selected_proj_sud=unique(split_vec_string(df_all$proj_sud, sep=";"))
+      selected_proj_sud=unique(split_vec_string(df_all$proj_sud, sep="\t"))
     } else{
       selected_proj_sud=input$select_projection
     }
@@ -45,29 +45,9 @@ server = function(input, output) {
     }
     condition_projection[is.na(condition_projection)]=TRUE
     
-    # CONDITION FILTRE "DISPOSITIF STRUCTURANT"
-    if(is.null(input$select_dispositif_structurant)){
-      selected_dispositif_structurant=unique(split_vec_string(df_all$dispositif, sep=";"))
-    } else{
-      selected_dispositif_structurant=input$select_dispositif_structurant
-    }
-    condition_dispositif_structurant = rep(FALSE,nrow(df_all))
-    for(k in 1:length(selected_dispositif_structurant)){
-      condition_dispositif_structurant = condition_dispositif_structurant | grepl(selected_dispositif_structurant[k], df_all$dispositif, fixed = TRUE)
-    }
-    condition_dispositif_structurant[is.na(condition_dispositif_structurant)]=TRUE
-    
-    # CONDITION FILTRE "genre"
-    if(is.null(input$select_genre)){
-      selected_genre=unique(df_all$genre)
-    } else{
-      selected_genre=input$select_genre
-    }
-    condition_genre = df_all$genre %in% selected_genre
-    
     # CONDITION FILTRE "THEMATIQUE"
     if(is.null(input$select_thematique)){
-      selected_thematique=unique(split_vec_string(df_all$thematique, sep=";"))
+      selected_thematique=unique(split_vec_string(df_all$thematique, sep="\t"))
     } else{
       selected_thematique=input$select_thematique
     }
@@ -76,18 +56,6 @@ server = function(input, output) {
       condition_thematique = condition_thematique | grepl(selected_thematique[k], df_all$thematique, fixed = TRUE)
     }
     condition_thematique[is.na(condition_thematique)]=TRUE
-    
-    # CONDITION FILTRE "MOTS CLES"
-    if(is.null(input$select_mots_cles)){
-      selected_mots_cles=unique(split_vec_string(df_all$mot_clef, sep=";"))
-    } else{
-      selected_mots_cles=input$select_mots_cles
-    }
-    condition_mots_cles = rep(FALSE,nrow(df_all))
-    for(k in 1:length(selected_mots_cles)){
-      condition_mots_cles = condition_mots_cles | grepl(selected_mots_cles[k], df_all$mot_clef, fixed = TRUE)
-    }
-    condition_mots_cles[is.na(condition_mots_cles)]=TRUE
     
     #CONDITION CHECKBOX
     if(input$checkbox_masquer_france){
@@ -99,7 +67,7 @@ server = function(input, output) {
 
     # DEFINITION DF_FILTRE
     # Prend en compte l'ensemble des conditions/filtres détaillés précédement pour créer le dataframe réactif "df_filtre"
-    df_filtre = df_all[condition_zone & condition_umr & condition_projection & condition_thematique & condition_mots_cles & condition_genre & condition_checkbox & condition_dispositif_structurant,]
+    df_filtre = df_all[condition_zone & condition_umr & condition_projection & condition_thematique & condition_checkbox,]
   
   }) # end of df_filtre()
   
@@ -297,13 +265,13 @@ server = function(input, output) {
   
   
   # ==================
-  # BAR PLOT H/F
+  # BAR PLOT UNITES
   # ==================
-  # Donne la distribution Homme-Femme parmis les agents en fonction des filtres
+  # Donne la distribution des agents en fonction de leurs unités
   
-  output$stat_hf = renderPlot({
-    data_all = as.data.frame(table(df_all$genre[df_all$genre %in% c("Homme", "Femme")]))
-    data_filtre = as.data.frame(table(df_filtre()$genre[df_filtre()$genre %in% c("Homme", "Femme")]))
+  output$stat_unite = renderPlot({
+    data_all = as.data.frame(table(df_all$unite[df_all$unite %in% c("MARBEC", "LEGOS", "SECOPOL", "LOCEAN", "LEMAR", "MIO", "ENTROPIE")]))
+    data_filtre = as.data.frame(table(df_filtre()$unite[df_filtre()$unite %in% c("MARBEC", "LEGOS", "SECOPOL", "LOCEAN", "LEMAR", "MIO", "ENTROPIE")]))
     missing_values = setdiff(data_all$Var1,data_filtre$Var1)
     data_barplot = rbind(data_filtre, data.frame(Var1=missing_values, Freq=rep(0,length(missing_values))))
     tmp = sort.int(data_barplot$Freq, index.return=TRUE, decreasing = TRUE)
@@ -318,13 +286,13 @@ server = function(input, output) {
     text(bar_hf, data_barplot$Freq + 1, paste(data_barplot$Freq), pos=3)
   })
   
-  output$downloadPlot_hf = downloadHandler(
+  output$downloadPlot_unite = downloadHandler(
     filename = sprintf("hist-hf-%s.png",Sys.Date()),
     content = function(file) {
       png(file, width=800, height=400)
       
-      data_all = as.data.frame(table(df_all$genre[df_all$genre %in% c("Homme", "Femme")]))
-      data_filtre = as.data.frame(table(df_filtre()$genre[df_filtre()$genre %in% c("Homme", "Femme")]))
+      data_all = as.data.frame(table(df_all$unite[df_all$unite %in% c("MARBEC", "LEGOS", "SECOPOL", "LOCEAN", "LEMAR", "MIO", "ENTROPIE")]))
+      data_filtre = as.data.frame(table(df_filtre()$unite[df_filtre()$unite %in% c("MARBEC", "LEGOS", "SECOPOL", "LOCEAN", "LEMAR", "MIO", "ENTROPIE")]))
       missing_values = setdiff(data_all$Var1,data_filtre$Var1)
       data_barplot = rbind(data_filtre, data.frame(Var1=missing_values, Freq=rep(0,length(missing_values))))
       tmp = sort.int(data_barplot$Freq, index.return=TRUE, decreasing = TRUE)
@@ -351,7 +319,7 @@ server = function(input, output) {
   output$gantt_chart = renderPlotly({
     
     #recuperation des donnees
-    df_gantt = df_filtre()[!is.na(df_filtre()$debut) & !is.na(df_filtre()$fin),c("debut","fin","pays_fr","duree","agent","unite")]
+    df_gantt = df_filtre()[!is.na(df_filtre()$debut) & !is.na(df_filtre()$fin),c("debut","fin","pays_fr","duree","individu","unite")]
     df_gantt$geometry = NULL
     df_gantt$debut = as.POSIXct.Date(as.Date(df_gantt$debut, format = "%d/%m/%y"))
     df_gantt$fin = as.POSIXct.Date(as.Date(df_gantt$fin, format = "%d/%m/%y"))
@@ -480,7 +448,7 @@ server = function(input, output) {
     # Lit les mots cles des differentes lignes de df_all en fonction du pays clique
     # Comme pour les thematiques, extrait les differents elements des chaines de caracteres stockees dans chaque ligne et en fait une liste sans repetition
     mots_cles_pays = unique(na.omit(df_all$mot_clef[df_all$name==country_name]))
-    mots_cles_pays_split =  unlist(strsplit(mots_cles_pays, ";"))
+    mots_cles_pays_split =  unlist(strsplit(mots_cles_pays, "\t"))
     is_first_char_blank = substr(mots_cles_pays_split, 1, 1) == " "
     mots_cles_pays_split[is_first_char_blank] = substring(mots_cles_pays_split[is_first_char_blank], 2)
     mots_cles_pays_split = unique(mots_cles_pays_split)
