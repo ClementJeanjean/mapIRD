@@ -1,14 +1,12 @@
-# </a><img src="mapIRD_logo.png" align="middle" height="100" /></a>
+---
+author: "Clément Jeanjean"
+last update: "February 2026"
 
 ---
-format: "Shiny App" |
-author: "Clément Jeanjean" |
-last update: "February 2026" |
+
+# <div align="center"><img src="mapIRD_logo.png" height="100" /><br/>A Shiny App dashboard to track and visualize agent assignments over time.</div>
+
 ---
-
-[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl.html)       
-
-**Table of Contents**
  
   - [Description](#description)
   - [Quick start](#quick-start)
