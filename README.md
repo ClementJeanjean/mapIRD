@@ -1,5 +1,10 @@
-# Shiny app: </a><img src="mapIRD_logo.png" align="middle" height="100" /></a>
+# </a><img src="mapIRD_logo.png" align="middle" height="100" /></a>
 
+---
+format: "Shiny App"
+author: "Clément Jeanjean"
+last update: "February 2026"
+---
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl.html)       
 
