@@ -1,14 +1,17 @@
+# Extracts data from the provided database and stores it in a data frame named "df_data"
 
-# Extrait les valeurs de la base de données fournie et stocke ces valeurs dans un dataframe "df_data"
-
-# =========================== 
-# LECTURE DATABASE
+# ===========================
+# READ DATABASE
 # ===========================
 
+# Set the root directory to the current working directory
 root_dir = getwd()
-data_dir = sprintf("%s/data",root_dir)
+# Define the data directory path
+data_dir = sprintf("%s/data", root_dir)
+# Specify the data file name
 filename = "data.txt"
 
+# Read the data file into a data frame, using tab as delimiter and latin1 encoding
 df_data <- read.delim(
   file = sprintf("%s/%s", data_dir, filename),
   header = TRUE,
@@ -17,6 +20,7 @@ df_data <- read.delim(
   stringsAsFactors = FALSE
 )
 
+# Rename data frame columns for clarity and consistency
 names(df_data)[names(df_data)=="Individu"] = "individu"
 names(df_data)[names(df_data)=="Genre"] = "genre"
 names(df_data)[names(df_data)=="Pays_fr"] = "pays_fr"
@@ -32,4 +36,20 @@ names(df_data)[names(df_data)=="Destination"] = "destination"
 names(df_data)[names(df_data)=="Partenaires"] = "partenaires"
 names(df_data)[names(df_data)=="Thématique"] = "thematique"
 
+# Load the units dictionary from a CSV file
+filename_dico_unites = "CODEUNITESOCEANS.csv"
+df_data_dico_unites = read.csv(
+  file=sprintf("%s/%s", data_dir, filename_dico_unites),
+  header=TRUE,
+  sep=",",
+  fileEncoding="latin1"
+)
 
+# Load the dispositifs (programs/devices) dictionary from a CSV file
+filename_dico_dispositifs = "CODEDISPOSITIFSOCEANS_270824.csv"
+df_data_dico_dispositifs = read.csv(
+  file=sprintf("%s/%s", data_dir, filename_dico_dispositifs),
+  header=TRUE,
+  sep=",",
+  fileEncoding="latin1"
+)
