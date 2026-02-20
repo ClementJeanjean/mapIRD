@@ -15,7 +15,7 @@ filename = "data.txt"
 df_data <- read.delim(
   file = sprintf("%s/%s", data_dir, filename),
   header = TRUE,
-  fileEncoding = "latin1",
+  fileEncoding = "utf-8",
   quote = "\"",
   stringsAsFactors = FALSE
 )
@@ -44,5 +44,6 @@ df_data_dico_unites = read.csv(
   sep=",",
   fileEncoding="latin1"
 )
+
 
 
