@@ -1,27 +1,24 @@
-
-
 # libraries
-# Appel aux différents packages utilisés dans la Shiny App
-library(shiny)            # Pour construire l'application web
-library(shinydashboard)   # Pour construire une application sous forme de tableau de bord
-library(plotly)           # Permet de faire des plots, notamment le GANTT
-library(sf)               # Lecture de données spatiales/géographiques
-library(bslib)            # Layout, mise en forme, cards etc.
-library(bsicons)          # librairie d'icones en complément de bslib
-library(leaflet)          # Permet d'afficher les fonds de carte et de rendre la carte interactive
-library(DT)               # Pour lire, traiter, afficher des data tables
-library(dplyr)            # Pour travailler avec des data frames
-library(shinycssloaders)  # Pour animer des temps de chargement
-library(htmltools)        # Affichage des thematiques avec retour a la ligne
+# Calling packages used in the Shiny App
+library(shiny)            # Builds the web app
+library(shinydashboard)   # Builds the web app in dashboard format
+library(plotly)           # Plots, GANTT
+library(sf)               # Reads spatial/geographic data
+library(bslib)            # Layout, design formatting, cards etc.
+library(bsicons)          # Complementary bslib icons library
+library(leaflet)          # Displays maps and make them interactive
+library(DT)               # Read, process, display data tables
+library(dplyr)            # Working with data frames
+library(shinycssloaders)  # Loading animations
+library(htmltools)        # Diplay themes with a return to line
 
 # directories
-# (Permet de faire fonctionner l'application depuis n'importe quel moniteur contenant le dossier projet)
 root_dir = getwd()
 data_dir = sprintf("%s/data",root_dir)
 src_dir = sprintf("%s/src", root_dir)
 
-# Permet à l'application d'accéder aux fonctions requises pour son bon fonnctionnement
-# Attention l'ordre est important car certaines fonctions ont besoin des résultats fournis par d'autres fonctions
+# Allows the application to access the functions required for its proper operation
+# Note that the order is important because some functions need the results provided by other functions
 source(sprintf("%s/set_axis_values.R", src_dir), echo=FALSE)
 source(sprintf("%s/load_data.R", src_dir), echo=FALSE)
 source(sprintf("%s/load_geojson.R", src_dir), echo=FALSE)
@@ -31,6 +28,6 @@ source(sprintf("%s/ui.R", src_dir), echo=FALSE)
 source(sprintf("%s/server.R", src_dir), echo=FALSE)
 
 
-# Lancement de l'application
+# Launches the app
 runApp("app.R")
 
