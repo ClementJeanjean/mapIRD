@@ -183,69 +183,6 @@ server = function(input, output) {
   # ==================
   # BAR PLOT: COUNTRIES
   # ==================
-  # Distribution of individuals by country based on filters
-  
-  output$stat_nb_actions_pays = renderPlot({
-    data_all = as.data.frame(table(df_all$pays_fr))
-    data_filtre = as.data.frame(table(df_filtre()$pays_fr))
-    
-    missing_values = setdiff(data_all$Var1, data_filtre$Var1)
-    data_barplot = rbind(
-      data_filtre,
-      data.frame(Var1 = missing_values, Freq = rep(0, length(missing_values)))
-    )
-    
-    tmp = sort.int(data_barplot$Freq, index.return = TRUE, decreasing = TRUE)
-    data_barplot = data_barplot[tmp$ix, ]
-    
-    par(mai = c(2, 0.5, 0.25, 0.25))
-    bar_pays = barplot(
-      data_barplot$Freq,
-      names.arg = data_barplot$Var1,
-      col = "#1d71b8",
-      border = "white",
-      las = 2,
-      ylim = c(0, ceiling(1.2 * max(data_barplot$Freq))),
-      yaxt = "n"
-    )
-    
-    at_values = set_axis_values(data_barplot$Freq)
-    abline(h = at_values, lwd = 0.5, col = "#8a8a8a", lty = 2)
-    axis(2, at = at_values, labels = at_values, las = 1)
-    
-    barplot(
-      data_barplot$Freq,
-      names.arg = data_barplot$Var1,
-      col = "#1d71b8",
-      border = "white",
-      las = 2,
-      xaxt = "n",
-      yaxt = "n",
-      add = TRUE
-    )
-    
-    text(
-      bar_pays,
-      data_barplot$Freq + 0.05 * max(data_barplot$Freq),
-      paste(data_barplot$Freq),
-      pos = 3
-    )
-  })
-  
-  #########################################
-  #              STATISTICS               #
-  #########################################
-  # Global and reactive statistics based on filters
-  # Not influenced by clicked polygons
-  
-  selected_dispositif <- reactive({
-    input$select_projection
-  })
-  
-  
-  # ==================
-  # BAR PLOT: COUNTRIES
-  # ==================
   # Displays the distribution of individuals by country, based on filters
   
   output$stat_nb_actions_pays = renderPlot({
@@ -623,11 +560,7 @@ server = function(input, output) {
                   options = list(pageLength = 20, scrollX = TRUE))
   )
   
-  output$donnees_dico_dispositifs = DT::renderDataTable(
-    DT::datatable(df_data_dico_dispositifs, escape = FALSE,
-                  options = list(pageLength = 20, scrollX = TRUE))
-  )
-  
+
   
   #########################################
   #              RAW DATA                 #
@@ -639,3 +572,4 @@ server = function(input, output) {
   )
   
 }
+
