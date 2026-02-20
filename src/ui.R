@@ -230,15 +230,6 @@ ui <- page_navbar(
                     )
                   ), # end of panel
                   
-                  # ==== TAB: DEVICES DICTIONARY ====
-                  nav_panel(
-                    "OCEANS Devices Dictionary",
-                    card_body(
-                      "*Search interface for information about OCEANS devices",
-                      DT::dataTableOutput("donnees_dico_dispositifs")
-                    )
-                  ), # end of panel
-                  
                   # ==== TAB: RAW DATA ====
                   nav_panel(
                     "Raw Data",
@@ -251,3 +242,4 @@ ui <- page_navbar(
                   ), # end of panel
   ) # end of main
 ) # end of UI
+
