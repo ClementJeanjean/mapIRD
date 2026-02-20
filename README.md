@@ -5,20 +5,15 @@
 
 by Clément Jeanjean | last update: February 2026
 
- 
-  - [Description](#description)
-  - [Quick start](#quick-start)
-  - [Input](#inputs)
-  - [App overview](#app-overview)
-
 ## Description
 **mapIRD** is a Shiny application built in **R** that allows users to **explore, visualize, and track international assignments** of IRD agents over time on an interactive world map. ([github.com](https://github.com/ClementJeanjean/mapIRD))
 
 This document walks you through:
-1. Project overview
-2. Setup & prerequisites  
-3. Repository structure  
-4. Installing and Running the app locally  
+- [1. Project overview](https://github.com/ClementJeanjean/mapIRD/edit/main/README.md#1-project-overview)
+- [2. Setup & prerequisites](https://github.com/ClementJeanjean/mapIRD/edit/main/README.md#2-setup--prerequisites)
+- [3. Repository structure](https://github.com/ClementJeanjean/mapIRD/edit/main/README.md#3-repository-structure)
+- [4. Installing and Running the app locally](https://github.com/ClementJeanjean/mapIRD/edit/main/README.md#4-installing-and-running-the-app-locally)
+- [5. Troubleshooting](https://github.com/ClementJeanjean/mapIRD/edit/main/README.md#-5-troubleshooting)
 
 ## 1. Project Overview
 
@@ -75,14 +70,14 @@ Below is the high-level structure of the repository:
 ---
 
 
-### Shiny App Anatomy (quick)
+### Shiny App Anatomy
 
 Shiny apps typically have:
 
 - A **UI section** defining layout and widgets. ([mjfrigaard.github.io](https://mjfrigaard.github.io/shiny-app-pkgs/shiny.html?utm_source=chatgpt.com))  
 - A **Server section** containing reactive logic and outputs. ([mjfrigaard.github.io](https://mjfrigaard.github.io/shiny-app-pkgs/shiny.html?utm_source=chatgpt.com))  
-- Data loaded at the top (global scope) or inside server logic.  
-- Static assets in `www/` for styling and scripting.
+- Data are tipically loaded at the top (global scope) or inside (local scope) the server logic.  
+- Static assets are stored in `www/` to make them accessible from a temporary server for styling the actual app (logos, images).
 
 In *mapIRD*, all core app logic lives inside `app.R`. Helper functions or shared routines (if any) are in `src/`.
 
@@ -100,7 +95,7 @@ cd mapIRD
 
 ## 4.2 launch the app from RStudio
 
-### With **RStudio** :
+In **RStudio**, from mapIRD project workspace, run :
 
 ```r
 # Install packages if not already installed
@@ -124,53 +119,18 @@ Then, launch the app :
 
 RStudio will automatically launch the Shiny app in the Viewer pane or your default browser.
 
-### With **R** :
 
-Make sure your working directory is the repository root, then run:
+---
 
-```r
-# You can run the main app directly
-shiny::runApp("app.R")
+## 📌 5. Troubleshooting
 
-# Or you can also run the app via helper script
-source("start_app.R")
-```
+| Symptom | Likely Cause | Fix |
+|---------|--------------|------|
+| App fails to start | Missing package | Install missing packages via `install.packages()` |
+| Map does not render | `leaflet` or `sf` issues | Ensure `leaflet` and `sf` are installed and working |
+| Data not showing | Missing data file or incorrect path or incorrect data syntax | Check `data/` folder for required files and check syntax |
 
-This will start the Shiny server and open a new browser window with the interactive interface.
+---
 
-
-
-
-
-
-
-## Quick start
-A quick-to-run test dataset is available in 'data/' to check if the app suits your needs (see more details in [Input](#input) section).
-
-First, Rstudio must be installed on your machine.
-
-Then, clone the repository:
-```commandline
-   mkdir mapIRD
-   git clone https://github.com/ClementJeanjean/mapIRD.git
-   cd mapIRD
-```
-
-## :inbox_tray: Input
-The input data consists of a table with fictionnal agents and missions.
-
-Your **input** table must have four named columns: 
-* **info1**: sample name used to link corresponding FASTQ files
-* **info2**: sample name used to link corresponding FASTQ files 
-* **info3**: path to FASTQ file
-* **info4**: seed to initialize the random number generator
-
-| info1 | info2 | info3 | info4 | 
-|-------|-------|-------|-------|
-| ...   | ...   | ...   | ...   | 
-| ...   | ...   | ...   | ...   | 
-| ...   | ...   | ...   | ...   | 
-
-## App overview
 
 
