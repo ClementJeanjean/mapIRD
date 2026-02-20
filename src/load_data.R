@@ -45,11 +45,4 @@ df_data_dico_unites = read.csv(
   fileEncoding="latin1"
 )
 
-# Load the dispositifs (programs/devices) dictionary from a CSV file
-filename_dico_dispositifs = "CODEDISPOSITIFSOCEANS_270824.csv"
-df_data_dico_dispositifs = read.csv(
-  file=sprintf("%s/%s", data_dir, filename_dico_dispositifs),
-  header=TRUE,
-  sep=",",
-  fileEncoding="latin1"
-)
+
